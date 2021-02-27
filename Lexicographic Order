@@ -1,0 +1,28 @@
+//Lexicographic Order
+import java.util.*;
+public class BackTracking 
+{
+	public static void Dfs(int i,int n)
+	{
+		// first it will print it's family like first 1 will print all it's family than 2 and than 3 and than 4.......
+		if(i>n)
+			return;
+		System.out.print(i+" ");
+		for(int j=0;j<10;j++)
+		{
+			Dfs(10*i+j,n);
+		}
+		System.out.println();
+	}
+	public static  void lexicographic(int n)
+	{
+		for(int i=1;i<=9;i++)
+		{
+			Dfs(i,n);
+		}
+	}
+	public static void main(String[] args)
+	{
+		lexicographic(1000);
+	}
+}
