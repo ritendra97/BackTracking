@@ -1,0 +1,33 @@
+//Permutation of String
+import java.util.*;
+public class BackTracking 
+{
+	public static String swap(String a, int i, int j) 
+    { 
+        char temp; 
+        char[] charArray = a.toCharArray(); 
+        temp = charArray[i] ; 
+        charArray[i] = charArray[j]; 
+        charArray[j] = temp; 
+        return String.valueOf(charArray); 
+    } 
+	public static void printpermutationofstring(int cs,int ts,String str)
+	{
+		if(cs==ts)
+		{
+			System.out.println(str);
+			return;
+		}
+		for(int i=cs;i<=ts;i++)
+		{
+			str=swap(str,cs,i);
+			printpermutationofstring(cs+1,ts,str);
+			str=swap(str,cs,i);
+		}
+	}
+	public static void main(String[] args) 
+	{
+		String s ="abc";
+		printpermutationofstring(0,3-1,s);
+	}
+}
