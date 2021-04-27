@@ -1,0 +1,66 @@
+Print Partition of k equal subsetimport java.util.*;
+// Going to solve this by using backtracking
+public class Recursion {
+
+	// nes -> no of nonempty sets.
+    public static void canPartitionKSubsetsUtil(int vindex, int nes,int[] nums, int k,ArrayList<ArrayList<Integer>> ans,int subsetsum[]) {
+     
+    	if(vindex==nums.length) {
+    		
+    		if(nes == k) {
+    			boolean flag = true;
+    			for(int i=0;i<subsetsum.length-1;i++) {
+    				
+    				if(subsetsum[i]!=subsetsum[i+1]) {
+    					flag=false;
+    					break;
+    				}
+    			}
+    			
+    			if(flag) {
+        			for(ArrayList<Integer> partition: ans) {
+        				System.out.println(partition+" ");
+        			}
+        		}
+    		}
+    		return ;
+    		
+    	}
+    	for(int i=0;i<ans.size();i++) {
+    		
+    		if(ans.get(i).size()>0) {
+    			ans.get(i).add(nums[vindex]);
+    			subsetsum[i]+=nums[vindex];
+    			canPartitionKSubsetsUtil(vindex+1,nes,nums,k,ans,subsetsum);
+    			subsetsum[i]-=nums[vindex];
+    			ans.get(i).remove(ans.get(i).size()-1);
+    		}else {
+    			ans.get(i).add(nums[vindex]);
+    			subsetsum[i]+=nums[vindex];
+    			canPartitionKSubsetsUtil(vindex+1,nes+1,nums,k,ans,subsetsum);
+    			subsetsum[i]-=nums[vindex];
+    			ans.get(i).remove(ans.get(i).size()-1);
+    			break;
+    		}
+    	}
+    }
+    public static void canPartitionKSubsets(int[] nums, int k) {
+     
+    	ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+    	
+    	for(int i=0;i<k;i++) {
+    		ans.add(new ArrayList<Integer>());
+    	}
+    	
+    	int subsetsum[] = new int[k];
+    	
+    	canPartitionKSubsetsUtil(0,0,nums,k,ans,subsetsum);
+    }
+	public static void main(String[] args) {
+		
+		int arr[] = {4,3,2,3,5,2,1};
+		int k=4;
+		canPartitionKSubsets(arr,k);
+	}
+
+}
