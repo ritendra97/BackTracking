@@ -1,0 +1,32 @@
+import java.util.*;
+
+public class BackTracking {
+
+	public static void subString(String str, String psf) {
+
+		int n = str.length();
+ 
+		if(str.length()==0) {
+			System.out.println(psf);
+			return;
+		}
+			
+		for (int i = 0; i < str.length(); i++) {
+
+			char ch = str.charAt(i);
+			String left = str.substring(0, i);
+			String right = str.substring(i + 1);
+
+			String total = left + right;
+
+			subString(total, psf + ch);
+		}
+	}
+
+	public static void main(String[] args) {
+
+		String str = "abc";
+		subString(str, "");
+	}
+
+}
