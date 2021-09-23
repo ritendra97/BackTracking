@@ -1,0 +1,38 @@
+import java.util.*;
+
+public class BackTracking {
+
+	public static void combinationSumUtill(ArrayList<ArrayList<Integer>> answer, int[] candidates, int index,
+			int target, ArrayList<Integer> curr) {
+
+		if (index == candidates.length) {
+			if (target == 0) {
+				answer.add(new ArrayList<Integer>(curr));
+			}
+			return;
+		}
+
+		if (candidates[index] <= target) {
+			curr.add(candidates[index]);
+			combinationSumUtill(answer, candidates, index, target - candidates[index], curr);
+			curr.remove(curr.size() - 1);
+		}
+
+		combinationSumUtill(answer, candidates, index + 1, target, curr);
+	}
+
+	public static ArrayList<ArrayList<Integer>> combinationSum(int[] candidates, int target) {
+
+		ArrayList<ArrayList<Integer>> answer = new ArrayList<ArrayList<Integer>>();
+		combinationSumUtill(answer, candidates, 0, target, new ArrayList<Integer>());
+		return answer;
+	}
+
+	public static void main(String[] args) {
+
+		int candidate[] = { 2, 3, 6, 7 };
+		int target = 7;
+
+		System.out.println(combinationSum(candidate,target));
+	}
+}
