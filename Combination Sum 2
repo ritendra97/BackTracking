@@ -1,0 +1,42 @@
+import java.util.*;
+
+public class BackTracking {
+
+	public static void combinationSum2Utill(int index, ArrayList<ArrayList<Integer>> answer, int[] candidates,
+			int target, ArrayList<Integer> curr) {
+
+		if (target == 0) {
+			answer.add(new ArrayList<Integer>(curr));
+			return;
+		}
+
+		for (int i = index; i < candidates.length; i++) {
+
+			if (i > index && candidates[i] == candidates[i - 1])
+				continue;
+
+			if (target < candidates[i])
+				break;
+
+			curr.add(candidates[i]);
+			combinationSum2Utill(i + 1, answer, candidates, target - candidates[i], curr);
+			curr.remove(curr.size() - 1);
+		}
+	}
+
+	public static ArrayList<ArrayList<Integer>> combinationSum2(int[] candidates, int target) {
+
+		ArrayList<ArrayList<Integer>> answer = new ArrayList<ArrayList<Integer>>();
+		combinationSum2Utill(0, answer, candidates, target, new ArrayList<Integer>());
+
+		return answer;
+	}
+
+	public static void main(String[] args) {
+
+		int candidates[] = { 2, 5, 2, 1, 2 };
+		int target = 5;
+
+		System.out.println(combinationSum2(candidates, target));
+	}
+}
