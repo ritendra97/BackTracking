@@ -1,0 +1,30 @@
+import java.util.*;
+
+public class BackTracking {
+
+	public static void helper(List<List<Integer>> ans, int start, ArrayList<Integer> curr, int k, int n) {
+
+		if (curr.size() == k) {
+			ans.add(new ArrayList(curr));
+			return;
+		}
+		for (int i = start; i <= n; i++) {
+			curr.add(i);
+			helper(ans, i + 1, curr, k, n);
+			curr.remove(curr.size() - 1);
+		}
+	}
+
+	public static List<List<Integer>> combine(int n, int k) {
+
+		List<List<Integer>> ans = new ArrayList<>();
+		helper(ans, 1, new ArrayList<Integer>(), k, n);
+		return ans;
+	}
+
+	public static void main(String[] args) {
+
+		int n = 4, k = 2;
+		combine(n, k);
+	}
+}
