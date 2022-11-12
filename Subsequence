@@ -1,0 +1,29 @@
+import java.util.ArrayList;
+
+public class Main {
+
+	public static void subSequencesUtill(int index, int n, int arr[], ArrayList<Integer> ans) {
+
+		if (index == n) {
+			System.out.print(ans);
+			System.out.println();
+			return;
+			
+		} else {
+			subSequencesUtill(index + 1, n, arr, ans);
+			ans.add(arr[index]);
+			subSequencesUtill(index + 1, n, arr, ans);
+			ans.remove(ans.size()-1);
+		}
+
+	}
+
+	public static void subSequences(int n, int arr[]) {
+		subSequencesUtill(0, n, arr, new ArrayList<Integer>());
+	}
+
+	public static void main(String[] args) {
+		int arr[] = { 1, 2, 3 };
+		subSequences(arr.length, arr);
+	}
+}
