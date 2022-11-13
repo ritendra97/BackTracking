@@ -1,0 +1,40 @@
+import java.util.ArrayList;
+import java.util.List;
+
+// palindrome partition
+
+public class Main {
+
+	public static void palindromePartition(int index, String s, List<String> path,List<ArrayList<String>> res) {
+		
+		if(index==s.length()) {
+			res.add(new ArrayList<String>(path));
+			return;
+		}
+		
+		for(int i = index;i<s.length();i++) {
+			if(isPalindrome(s, index, i)) {
+				path.add(s.substring(index,i+1));
+				palindromePartition(i+1, s, path,res);
+				path.remove(path.size()-1);
+			}
+		}
+	}
+	
+	public static boolean isPalindrome(String s, int start, int end) {
+
+		while (start <= end) {
+			if (s.charAt(start++) != s.charAt(end--)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static void main(String[] args) {
+		List<String> path = new ArrayList<String>();
+		List<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
+		palindromePartition(0,"aabb",path,res);
+		res.stream().forEach(System.out::println);
+	}
+}
